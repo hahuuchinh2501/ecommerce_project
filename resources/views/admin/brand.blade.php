@@ -44,13 +44,13 @@ td {
       <div class="page-content">
         <div class="page-header">
           <div class="container-fluid">
-            <h2>Add Category</h2>
+            <h2>Add Brand</h2>
                 <div class="div_deg">
-                    <form action="{{ url('add_category') }}" method="post">
+                    <form action="{{ url('add_brand') }}" method="post">
                         @csrf
                         <div>
-                        <input type="text" name="category">
-                        <input class="btn btn-primary" type="submit" value="Add Category">
+                        <input type="text" name="brand">
+                        <input class="btn btn-primary" type="submit" value="Add Brand">
                         </div>
                     </form>
                  
@@ -58,15 +58,15 @@ td {
                                        <div>
                     <table class="table_deg">
                         <tr>
-                        <th>Category Name</th>
+                        <th>Brand Name</th>
                         <th>edit</th>
                         <th>delete</th>
                         </tr>
                         @foreach ($data as $data )
                         <tr>
-                            <td>{{ $data->category_name }}</td>
-                            <td><a class="btn btn-success" href="{{ url('edit_category',$data->id) }}">Edit</a></td>
-                            <td><a href="{{ url('delete_category',$data->id) }}" class="btn btn-danger" onclick="confirmation(event)">delete</a></td>
+                            <td>{{ $data->brand_name }}</td>
+                            <td><a class="btn btn-success" href="{{ url('edit_brand',$data->id) }}">Edit</a></td>
+                            <td><a href="{{ url('delete_brand',$data->id) }}" class="btn btn-danger" onclick="confirmation(event)">delete</a></td>
                         </tr>
                         @endforeach
                        

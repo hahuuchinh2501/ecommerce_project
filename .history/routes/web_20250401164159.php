@@ -44,11 +44,3 @@ route::get('delete_brand/{id}',[AdminController::class,'delete_brand'])->middlew
 route::get('edit_brand/{id}',[AdminController::class,'edit_brand'])->middleware(['auth','admin']);
 
 route::post('update_brand/{id}',[AdminController::class,'update_brand'])->middleware(['auth','admin']);
-
-
-
-route::get('add_product',[AdminController::class,'add_product'])->middleware(['auth','admin']);
-
-route::post('upload_product',[AdminController::class,'upload_product'])->middleware(['auth','admin']);
-
-route::get('view_product',[AdminController::class,'view_product'])->middleware(['auth','admin']);
