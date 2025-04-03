@@ -74,5 +74,3 @@ Route::get('mycart', [HomeController::class, 'mycart'])->middleware(['auth', 've
 
 Route::get('remove_cart/{id}', [HomeController::class, 'remove_cart']);
 
-Route::post('update_cart_quantity/{id}', [HomeController::class, 'update_cart_quantity']);
-

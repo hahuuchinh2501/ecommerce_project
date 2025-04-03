@@ -102,29 +102,7 @@ public function add_cart(Request $request, $id)
     return redirect()->back();
 }
     public function mycart() {
-       if (Auth::id())
-{
-    $user = Auth::user();
-    $userid = $user->id;
-    $count = Cart::where('user_id', $userid)->count();
-
-    $cart = Cart::where('user_id',$userid)->get();
-}
-
-return view('home.mycart', compact('count','cart'));
+        return view('home.mycart')
     }
 
-    public function remove_cart($id)
-{
-    Cart::find($id)->delete();
-    return redirect()->back()->with('message', 'Product removed from cart successfully');
-}
-
-public function update_cart_quantity(Request $request, $id)
-{
-    $cart = Cart::find($id);
-    $cart->quantity = $request->quantity;
-    $cart->save();
-    return redirect()->back()->with('message', 'Cart quantity updated successfully');
-}
 }

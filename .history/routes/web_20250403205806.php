@@ -70,9 +70,5 @@ Route::get('add_cart/{id}', [HomeController::class, 'add_cart'])->middleware(['a
 
 Route::post('add_cart/{id}', [HomeController::class, 'add_cart'])->middleware(['auth', 'verified']);
 
-Route::get('mycart', [HomeController::class, 'mycart'])->middleware(['auth', 'verified']);
-
-Route::get('remove_cart/{id}', [HomeController::class, 'remove_cart']);
-
-Route::post('update_cart_quantity/{id}', [HomeController::class, 'update_cart_quantity']);
+Route::get('mycart/{id}', [HomeController::class, 'mycart'])->middleware(['auth', 'verified']);
 

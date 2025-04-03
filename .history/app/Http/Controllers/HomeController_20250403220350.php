@@ -120,11 +120,4 @@ return view('home.mycart', compact('count','cart'));
     return redirect()->back()->with('message', 'Product removed from cart successfully');
 }
 
-public function update_cart_quantity(Request $request, $id)
-{
-    $cart = Cart::find($id);
-    $cart->quantity = $request->quantity;
-    $cart->save();
-    return redirect()->back()->with('message', 'Cart quantity updated successfully');
-}
 }
