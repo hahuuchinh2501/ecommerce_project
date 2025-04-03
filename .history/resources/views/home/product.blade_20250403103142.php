@@ -28,11 +28,8 @@
               </div>
              
             <div style="padding:15px">
-              <a class="btn btn-dark" style="color: white" href="{{ url('product_details', $products->id) }}">
+              <a class="btn btn-success" href="{{ url('product_details', $products->id) }}">
                 Details
-              </a>
-               <a class="btn btn-white" style="border: 1px solid " href="{{ url('add_cart', $products->id) }}">
-                add cart
               </a>
           </div>
           </div>

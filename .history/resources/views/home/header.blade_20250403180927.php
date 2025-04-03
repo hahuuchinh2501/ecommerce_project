@@ -39,8 +39,7 @@
               @auth
 
                <a href="">
-              <i class="fa fa-shopping-bag" aria-hidden="true"></i>
-              [{{ $count }}]
+              <i class="fa fa-shopping-bag" aria-hidden="true">{{ $count }}</i>
             </a>
 
              <form class="form-inline ">

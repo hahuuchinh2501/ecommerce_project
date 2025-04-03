@@ -23,52 +23,19 @@ class HomeController extends Controller
     {
         $product = Product::all();
 
-        if(Auth::id()) {
-        $user = Auth::user();
-
-        $userid = $user->id;
-
-        $count = Cart::where('user_id', $userid)->count();
-        } else {
-            $count = '';
-        }
-
-      
-
-        return view('home.index',compact('product','count'));
+        return view('home.index',compact('product'));
     }
 
     public function login_home() {
           $product = Product::all();
 
-       if(Auth::id()) {
-        $user = Auth::user();
-
-        $userid = $user->id;
-
-        $count = Cart::where('user_id', $userid)->count();
-        } else {
-            $count = '';
-        }
-
-        return view('home.index',compact('product','count'));
+        return view('home.index',compact('product'));
     }
 
     public function product_details($id)
 {
     $data = Product::find($id);
-
-      if(Auth::id()) {
-        $user = Auth::user();
-
-        $userid = $user->id;
-
-        $count = Cart::where('user_id', $userid)->count();
-        } else {
-            $count = '';
-        }
-
-    return view('home.product_details',compact('data','count'));
+    return view('home.product_details',compact('data'));
 }
 
 public function add_cart(Request $request, $id)
@@ -100,5 +67,4 @@ public function add_cart(Request $request, $id)
 
     toastr()->timeOut(10000)->closeButton()->addSuccess('Add product to cart successfully');
     return redirect()->back();
-}
 }

@@ -40,7 +40,7 @@
 
                <a href="">
               <i class="fa fa-shopping-bag" aria-hidden="true"></i>
-              [{{ $count }}]
+              {{ $count }}
             </a>
 
              <form class="form-inline ">

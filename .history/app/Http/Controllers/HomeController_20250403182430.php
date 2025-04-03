@@ -23,33 +23,23 @@ class HomeController extends Controller
     {
         $product = Product::all();
 
-        if(Auth::id()) {
-        $user = Auth::user();
+         $user = Auth::user();
 
         $userid = $user->id;
 
         $count = Cart::where('user_id', $userid)->count();
-        } else {
-            $count = '';
-        }
 
-      
-
-        return view('home.index',compact('product','count'));
+        return view('home.index',compact('product'));
     }
 
     public function login_home() {
           $product = Product::all();
 
-       if(Auth::id()) {
         $user = Auth::user();
 
         $userid = $user->id;
 
         $count = Cart::where('user_id', $userid)->count();
-        } else {
-            $count = '';
-        }
 
         return view('home.index',compact('product','count'));
     }
@@ -58,15 +48,11 @@ class HomeController extends Controller
 {
     $data = Product::find($id);
 
-      if(Auth::id()) {
-        $user = Auth::user();
+      $user = Auth::user();
 
         $userid = $user->id;
 
         $count = Cart::where('user_id', $userid)->count();
-        } else {
-            $count = '';
-        }
 
     return view('home.product_details',compact('data','count'));
 }
