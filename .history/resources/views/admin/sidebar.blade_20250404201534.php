@@ -19,10 +19,9 @@
                   <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
                     <li><a href="{{ url('add_product') }}">Add product</a></li>
                     <li><a href="{{ url('view_product') }}">View product</a></li>
-                    
+                    <li><a href="#">Page</a></li>
                   </ul>
                 </li>
-                 <li><a href="{{ url('view_orders') }}"> <i class="icon-grid"></i>Order </a></li>
             
         </ul>
       </nav>

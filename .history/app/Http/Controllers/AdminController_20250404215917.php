@@ -277,17 +277,10 @@ public function view_order() {
 
     return view('admin.order',compact('data'));
 }
-public function on_delivery($id)
+public function on_the_way($id)
 {
     $data = Order::find($id);
-    $data->status = 'On Delivery';
-    $data->save();
-    return redirect('/view_orders');
-}
-public function delivered($id)
-{
-    $data = Order::find($id);
-    $data->status = 'Delivered';
+    $data->status = 'On the way';
     $data->save();
     return redirect('/view_orders');
 }

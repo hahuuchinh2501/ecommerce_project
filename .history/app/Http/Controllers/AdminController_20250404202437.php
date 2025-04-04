@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Brand;
 use App\Models\Product;
-use App\Models\Order;
 
 
 use Flasher\Toastr\Laravel\FlasherToastrServiceProvider;
@@ -273,23 +272,7 @@ return redirect('/view_product');
     return view('admin.view_product', compact('product'));
 }
 public function view_order() {
-    $data = Order::all();
-
-    return view('admin.order',compact('data'));
-}
-public function on_delivery($id)
-{
-    $data = Order::find($id);
-    $data->status = 'On Delivery';
-    $data->save();
-    return redirect('/view_orders');
-}
-public function delivered($id)
-{
-    $data = Order::find($id);
-    $data->status = 'Delivered';
-    $data->save();
-    return redirect('/view_orders');
+    return view('admin.order');
 }
 
 }

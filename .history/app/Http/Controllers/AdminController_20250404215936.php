@@ -284,12 +284,5 @@ public function on_delivery($id)
     $data->save();
     return redirect('/view_orders');
 }
-public function delivered($id)
-{
-    $data = Order::find($id);
-    $data->status = 'Delivered';
-    $data->save();
-    return redirect('/view_orders');
-}
 
 }

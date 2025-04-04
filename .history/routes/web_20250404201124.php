@@ -26,6 +26,8 @@ require __DIR__.'/auth.php';
 
 route::get('admin/dashboard',[HomeController::class,'index'])->middleware(['auth','admin']);
 
+route::get('index',[AdminController::class,'index'])->middleware(['auth','admin']);
+
 route::get('view_category',[AdminController::class,'view_category'])->middleware(['auth','admin']);
 
 route::post('add_category',[AdminController::class,'add_category'])->middleware(['auth','admin']);
@@ -81,10 +83,4 @@ Route::post('update_cart_quantity/{id}', [HomeController::class, 'update_cart_qu
 Route::get('view_shop', [HomeController::class, 'view_shop']);
 
 Route::post('confirm_order', [HomeController::class, 'confirm_order'])->middleware(['auth', 'verified']);
-
-Route::get('view_orders', [AdminController::class, 'view_order'])->middleware(['auth', 'admin']);
-
-Route::get('on_delivery/{id}', [AdminController::class, 'on_delivery'])->middleware(['auth', 'admin']);
-
-Route::get('delivered/{id}', [AdminController::class, 'delivered'])->middleware(['auth', 'admin']);
 

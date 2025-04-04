@@ -275,21 +275,7 @@ return redirect('/view_product');
 public function view_order() {
     $data = Order::all();
 
-    return view('admin.order',compact('data'));
-}
-public function on_delivery($id)
-{
-    $data = Order::find($id);
-    $data->status = 'On Delivery';
-    $data->save();
-    return redirect('/view_orders');
-}
-public function delivered($id)
-{
-    $data = Order::find($id);
-    $data->status = 'Delivered';
-    $data->save();
-    return redirect('/view_orders');
+    return view('admin.order',compact($data));
 }
 
 }

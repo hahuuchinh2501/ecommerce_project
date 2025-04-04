@@ -86,5 +86,3 @@ Route::get('view_orders', [AdminController::class, 'view_order'])->middleware(['
 
 Route::get('on_delivery/{id}', [AdminController::class, 'on_delivery'])->middleware(['auth', 'admin']);
 
-Route::get('delivered/{id}', [AdminController::class, 'delivered'])->middleware(['auth', 'admin']);
-
