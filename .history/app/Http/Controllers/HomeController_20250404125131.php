@@ -12,8 +12,6 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\Cart;
 
-use App\Models\Order;
-
 use App\Models\Category;
 
 class HomeController extends Controller
@@ -133,50 +131,7 @@ public function update_cart_quantity(Request $request, $id)
 }
 public function view_shop()
 {
-    $product = Product::all();
-
-        if(Auth::id()) {
-        $user = Auth::user();
-
-        $userid = $user->id;
-
-        $count = Cart::where('user_id', $userid)->count();
-        } else {
-            $count = '';
-        }
-
-    return view('home.view_shop',compact('product','count'));
+ 
+    return view('home.view_shop');
 }
-public function confirm_order(Request $request)
-{
-    $name = $request->name;
-    $address = $request->address;
-    $phone = $request->phone;
-    $userid = Auth::user()->id;
-    $cart = Cart::where('user_id', $userid)->get();
-
-    foreach ($cart as $carts)
-{
-    $order = new Order;
-    $order->name = $name;
-    $order->rec_address = $address;
-    $order->phone = $phone;
-    $order->user_id = $userid;
-    $order->product_id = $carts->product_id;
-     $order->quantity = $carts->quantity;
-    $order->save();
-   
-}
-
-$cart_remove = Cart::where('user_id', $userid)->get();
-
-foreach ($cart_remove as $remove)
-{
-    $data = Cart::find($remove->id);
-    $data->delete();
-}
- toastr()->timeOut(10000)->closeButton()->addSuccess('Orders successfully');
- return redirect()->back();
-}
-
 }

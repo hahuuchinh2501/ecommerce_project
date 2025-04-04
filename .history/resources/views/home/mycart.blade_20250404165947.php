@@ -71,12 +71,18 @@
         font-weight: bold;
     }
 
-  
+    .order_deg {
+    padding-right: 150px;
+    margin-top: -200px;
+}
+
 label {
     display: inline-block;
     width: 150px;
 }
-
+.div_gap{
+  padding: 20px;
+}
 </style>
 
 </head>
@@ -98,7 +104,6 @@ label {
     <div class="div_deg">
       <div class="order_deg">
       <form action="{{ url('confirm_order') }}" method="Post">
-        @csrf
     <div class="div_gap">
         <label>Receiver Name</label>
         <input type="text" name="name" value="{{ Auth::user()->name }}">

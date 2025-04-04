@@ -147,7 +147,7 @@ public function view_shop()
 
     return view('home.view_shop',compact('product','count'));
 }
-public function confirm_order(Request $request)
+public function comfirm_order(Request $request)
 {
     $name = $request->name;
     $address = $request->address;

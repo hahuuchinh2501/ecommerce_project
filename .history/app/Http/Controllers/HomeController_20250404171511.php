@@ -147,7 +147,7 @@ public function view_shop()
 
     return view('home.view_shop',compact('product','count'));
 }
-public function confirm_order(Request $request)
+public function comfirm_order(Request $request)
 {
     $name = $request->name;
     $address = $request->address;
@@ -163,7 +163,6 @@ public function confirm_order(Request $request)
     $order->phone = $phone;
     $order->user_id = $userid;
     $order->product_id = $carts->product_id;
-     $order->quantity = $carts->quantity;
     $order->save();
    
 }
@@ -175,7 +174,6 @@ foreach ($cart_remove as $remove)
     $data = Cart::find($remove->id);
     $data->delete();
 }
- toastr()->timeOut(10000)->closeButton()->addSuccess('Orders successfully');
  return redirect()->back();
 }
 

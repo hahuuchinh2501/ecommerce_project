@@ -12,10 +12,6 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\Cart;
 
-use App\Models\Order;
-
-use App\Models\Category;
-
 class HomeController extends Controller
 {
     public function index()
@@ -131,52 +127,50 @@ public function update_cart_quantity(Request $request, $id)
     $cart->save();
     return redirect()->back()->with('message', 'Cart quantity updated successfully');
 }
-public function view_shop()
-{
-    $product = Product::all();
-
-        if(Auth::id()) {
-        $user = Auth::user();
-
-        $userid = $user->id;
-
-        $count = Cart::where('user_id', $userid)->count();
-        } else {
-            $count = '';
+ public function view_shop(Request $request)
+    {
+        // Start with a base query
+        $query = Product::query();
+        
+        // Apply search if provided
+        if ($request->has('search')) {
+            $searchTerm = $request->search;
+            $query->where(function($q) use ($searchTerm) {
+                $q->where('title', 'like', '%' . $searchTerm . '%')
+                  ->orWhere('description', 'like', '%' . $searchTerm . '%');
+            });
         }
-
-    return view('home.view_shop',compact('product','count'));
-}
-public function confirm_order(Request $request)
-{
-    $name = $request->name;
-    $address = $request->address;
-    $phone = $request->phone;
-    $userid = Auth::user()->id;
-    $cart = Cart::where('user_id', $userid)->get();
-
-    foreach ($cart as $carts)
-{
-    $order = new Order;
-    $order->name = $name;
-    $order->rec_address = $address;
-    $order->phone = $phone;
-    $order->user_id = $userid;
-    $order->product_id = $carts->product_id;
-     $order->quantity = $carts->quantity;
-    $order->save();
-   
-}
-
-$cart_remove = Cart::where('user_id', $userid)->get();
-
-foreach ($cart_remove as $remove)
-{
-    $data = Cart::find($remove->id);
-    $data->delete();
-}
- toastr()->timeOut(10000)->closeButton()->addSuccess('Orders successfully');
- return redirect()->back();
-}
-
+        
+        // Apply category filter if provided
+        if ($request->has('category')) {
+            $query->where('category_id', $request->category);
+        }
+        
+        // Apply sorting
+        if ($request->has('sort')) {
+            switch ($request->sort) {
+                case 'price_low':
+                    $query->orderBy('price', 'asc');
+                    break;
+                case 'price_high':
+                    $query->orderBy('price', 'desc');
+                    break;
+                case 'newest':
+                default:
+                    $query->orderBy('created_at', 'desc');
+                    break;
+            }
+        } else {
+            // Default sorting
+            $query->orderBy('created_at', 'desc');
+        }
+        
+        // Get paginated results
+        $products = $query->paginate(12);
+        
+        // Get all categories for the filter dropdown
+        $categories = Category::all();
+        
+        return view('shop.index', compact('products', 'categories'));
+    }
 }

@@ -70,13 +70,6 @@
         text-align: right;
         font-weight: bold;
     }
-
-  
-label {
-    display: inline-block;
-    width: 150px;
-}
-
 </style>
 
 </head>
@@ -97,26 +90,21 @@ label {
     
     <div class="div_deg">
       <div class="order_deg">
-      <form action="{{ url('confirm_order') }}" method="Post">
-        @csrf
-    <div class="div_gap">
+      <form>
+    <div class="dv_gap">
         <label>Receiver Name</label>
-        <input type="text" name="name" value="{{ Auth::user()->name }}">
-    </div>
-
-    <div class="div_gap">
-        <label>Receiver address</label>
-        <textarea name="address">{{ Auth::user()->address }}</textarea>
-    </div>
-
-    <div class="div_gap">
-        <label>Receiver phone</label>
-        <input type="text" name="phone" value="{{ Auth::user()->phone }}">
+        <input type="text" name="name">
     </div>
 
     <div>
-    <input class="btn btn-primary" type="submit" value="Place Order">
-</div>
+        <label>Receiver address</label>
+        <input type="text" name="address">
+    </div>
+
+    <div>
+        <label>Receiver phone</label>
+        <input type="text" name="phone">
+    </div>
 </form>
     </div>
       @if(count($cart) > 0)
@@ -169,6 +157,7 @@ label {
         
         <h4>Total Amount: {{ $total }}</h4>
         <div class="mt-3">
+          <a href="{{ url('checkout') }}" class="btn btn-success">Place order</a>
           <a href="{{ url('/') }}" class="btn btn-primary">Continue Shopping</a>
         </div>
       </div>

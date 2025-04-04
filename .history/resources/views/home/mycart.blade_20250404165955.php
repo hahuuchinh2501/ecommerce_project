@@ -71,12 +71,18 @@
         font-weight: bold;
     }
 
-  
+    .order_deg {
+    padding-right: 150px;
+    margin-top: -200px;
+}
+
 label {
     display: inline-block;
     width: 150px;
 }
-
+.div_gap{
+  padding: 20px;
+}
 </style>
 
 </head>
