@@ -9,8 +9,6 @@ use App\Models\Category;
 use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Order;
- use Barryvdh\DomPDF\Facade\Pdf;
- use App\Models\User;
 
 
 use Flasher\Toastr\Laravel\FlasherToastrServiceProvider;
@@ -296,36 +294,5 @@ public function delivered($id)
 
     public function print_pdf($id) {
 
-        $data=Order::find($id);
-
-            $pdf = Pdf::loadView('admin.invoice',compact('data'));
-            return $pdf->download('invoice.pdf');
     }
-    public function view_users()
-{
-    $users = User::all();
-    return view('admin.users', compact('users'));
-}
-public function delete_user($id)
-{
-    $user = User::find($id);
-    
-  
-    if (!$user) {
-        toastr()->timeOut(10000)->closeButton()->addError('User not found');
-        return redirect()->back();
-    }
-    
-  
-    if ($user->id == auth()->id()) {
-        toastr()->timeOut(10000)->closeButton()->addError('You cannot delete your own account');
-        return redirect()->back();
-    }
-    
-    $user->delete();
-    
-    toastr()->timeOut(10000)->closeButton()->addSuccess('User deleted successfully');
-    
-    return redirect()->back();
-}
 }

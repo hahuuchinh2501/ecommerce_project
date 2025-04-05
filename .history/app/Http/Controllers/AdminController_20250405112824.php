@@ -310,13 +310,13 @@ public function delete_user($id)
 {
     $user = User::find($id);
     
-  
+    // You might want to check if user exists
     if (!$user) {
         toastr()->timeOut(10000)->closeButton()->addError('User not found');
         return redirect()->back();
     }
     
-  
+    // Don't allow deleting the currently logged-in admin
     if ($user->id == auth()->id()) {
         toastr()->timeOut(10000)->closeButton()->addError('You cannot delete your own account');
         return redirect()->back();

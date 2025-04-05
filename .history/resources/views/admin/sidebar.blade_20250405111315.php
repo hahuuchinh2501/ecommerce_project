@@ -23,8 +23,7 @@
                   </ul>
                 </li>
                  <li><a href="{{ url('view_orders') }}"> <i class="icon-grid"></i>Order </a></li>
-                  <li><a href="{{ url('view_users') }}"><i class="icon-grid"></i>View Users</a></li>
-
+                 
             
         </ul>
       </nav>

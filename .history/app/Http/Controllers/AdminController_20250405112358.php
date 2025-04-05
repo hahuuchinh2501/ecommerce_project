@@ -306,26 +306,4 @@ public function delivered($id)
     $users = User::all();
     return view('admin.users', compact('users'));
 }
-public function delete_user($id)
-{
-    $user = User::find($id);
-    
-  
-    if (!$user) {
-        toastr()->timeOut(10000)->closeButton()->addError('User not found');
-        return redirect()->back();
-    }
-    
-  
-    if ($user->id == auth()->id()) {
-        toastr()->timeOut(10000)->closeButton()->addError('You cannot delete your own account');
-        return redirect()->back();
-    }
-    
-    $user->delete();
-    
-    toastr()->timeOut(10000)->closeButton()->addSuccess('User deleted successfully');
-    
-    return redirect()->back();
-}
 }

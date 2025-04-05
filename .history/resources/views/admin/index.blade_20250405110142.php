@@ -12,7 +12,7 @@
       <div class="page-content">
         <div class="page-header">
           <div class="container-fluid">
-            <h1 style="color: white;">Welcome to Admin dashboard</h1>
+            
            </div>
       </div>
     </div>
