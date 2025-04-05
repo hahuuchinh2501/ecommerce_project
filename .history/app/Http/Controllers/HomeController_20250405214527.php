@@ -188,20 +188,17 @@ public function delete_order($id)
 {
     $order = Order::find($id);
     
-    // Check if order exists
-    if (!$order) {
-        return redirect()->back()->with('message', 'Order not found');
-    }
-    
-    // Optional: Check if the order belongs to the current user
+    // Optional: Check if the order belongs to the current user for security
     if ($order->user_id != Auth::id()) {
         return redirect()->back()->with('message', 'Unauthorized action');
     }
     
-    // Delete the order
-    $order->delete();
-    
-    // Redirect with success message
-    return redirect()->back()->with('message', 'Order Deleted Successfully');
+    // Optional: You might want to check if the order can be deleted based on status
+    if ($order->status == 'Processing' || $order->status == 'Delivered') {
+        $order->delete();
+        return redirect()->back()->with('message', 'Order Deleted Successfully');
+    } else {
+        return redirect()->back()->with('message', 'Cannot delete this order');
+    }
 }
 }

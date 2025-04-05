@@ -179,29 +179,16 @@ foreach ($cart_remove as $remove)
  return redirect()->back();
 }
 public function myorders() {
-$user = Auth::user()->id;
-$count = Cart::where('user_id', $user)->get()->count();
-$order = Order::where('user_id',$user)->get();
-return view('home.order', compact('count','order'));
-}
-public function delete_order($id)
-{
-    $order = Order::find($id);
-    
-    // Check if order exists
-    if (!$order) {
-        return redirect()->back()->with('message', 'Order not found');
-    }
-    
-    // Optional: Check if the order belongs to the current user
-    if ($order->user_id != Auth::id()) {
-        return redirect()->back()->with('message', 'Unauthorized action');
-    }
-    
-    // Delete the order
-    $order->delete();
-    
-    // Redirect with success message
-    return redirect()->back()->with('message', 'Order Deleted Successfully');
+
+        if(Auth::id()) {
+        $user = Auth::user();
+
+        $userid = $user->id;
+
+        $count = Cart::where('user_id', $userid)->count();
+        } else {
+            $count = '';
+        }
+    return view('home.order',compact('count'));
 }
 }

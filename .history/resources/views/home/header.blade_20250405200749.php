@@ -28,7 +28,7 @@
 
               @auth
 
-              <a href="{{ url('myorders') }}">my order</a>
+              <a href="{{ url('myorders') }}"></a>
 
                <a href="{{ url('mycart') }}">
               <i class="fa fa-shopping-bag" aria-hidden="true"></i>

@@ -95,4 +95,4 @@ Route::get('print_pdf/{id}', [AdminController::class, 'print_pdf'])->middleware(
 Route::get('view_users', [AdminController::class, 'view_users'])->middleware(['auth', 'admin']);
 Route::get('delete_user/{id}', [AdminController::class, 'delete_user'])->middleware(['auth', 'admin']);
 
-Route::get('delete_order/{id}', [HomeController::class, 'delete_order'])->name('delete_order');
+Route::get('/delete_order/{id}', [HomeController::class, 'delete_order'])->name('delete_order');
