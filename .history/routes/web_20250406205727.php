@@ -97,7 +97,7 @@ Route::get('delete_user/{id}', [AdminController::class, 'delete_user'])->middlew
 
 Route::get('delete_order/{id}', [HomeController::class, 'delete_order'])->name('delete_order');
 
-Route::controller(HomeController::class)->group(function(){
+Route::controller(StripePaymentController::class)->group(function(){
 
     Route::get('stripe', 'stripe');
 

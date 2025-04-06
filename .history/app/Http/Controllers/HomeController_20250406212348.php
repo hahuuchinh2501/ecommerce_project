@@ -18,7 +18,7 @@ use App\Models\Category;
 
 use Stripe;
 
-use Session;
+use App\Http\Controllers\Session;
 
 class HomeController extends Controller
 {
@@ -228,7 +228,7 @@ public function stripe()
 
                 "source" => $request->stripeToken,
 
-                "description" => "Test payment from complete" 
+                "description" => "Test payment from itsolutionstuff.com." 
 
         ]);
 

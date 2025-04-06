@@ -18,8 +18,6 @@ use App\Models\Category;
 
 use Stripe;
 
-use Session;
-
 class HomeController extends Controller
 {
     public function index()
@@ -208,37 +206,4 @@ public function delete_order($id)
     // Redirect with success message
     return redirect()->back()->with('message', 'Order Deleted Successfully');
 }
-public function stripe()
-{
-    return view('home.stripe');
-}
-    public function stripePost(Request $request)
-
-    {
-
-        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
-
-    
-
-        Stripe\Charge::create ([
-
-                "amount" => 100 * 100,
-
-                "currency" => "usd",
-
-                "source" => $request->stripeToken,
-
-                "description" => "Test payment from complete" 
-
-        ]);
-
-      
-
-        Session::flash('success', 'Payment successful!');
-
-              
-
-        return back();
-
-    }
 }

@@ -116,8 +116,6 @@ label {
 
     <div>
     <input class="btn btn-primary" type="submit" value="Cash On Delivery">
-
-    <a class="btn btn-success" href="{{ url('stripe') }}">Pay Using Card</a>
 </div>
 </form>
     </div>

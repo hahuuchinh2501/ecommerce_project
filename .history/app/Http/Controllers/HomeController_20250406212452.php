@@ -18,7 +18,7 @@ use App\Models\Category;
 
 use Stripe;
 
-use Session;
+use App\Http\Controllers\Session;
 
 class HomeController extends Controller
 {
