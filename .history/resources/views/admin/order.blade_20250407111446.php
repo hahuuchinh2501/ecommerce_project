@@ -72,7 +72,6 @@ td {
             <img width="150" src="products/{{ $data->product->image1 }}">
 
         </td>
-        <td>{{ $data->payment_status }}</td>
          <td>
             @if ($data->status == 'in progress')
     <span style="color:red">{{ $data->status }}</span>

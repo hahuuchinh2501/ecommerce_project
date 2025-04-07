@@ -1,25 +1,18 @@
-<!-- Move the total calculation to the top of the view before it's used -->
-<?php 
-$total = 0; 
-if(isset($cart) && count($cart) > 0) {
-    foreach($cart as $cartItem) {
-        $total += $cartItem->product->price * $cartItem->quantity;
-    }
-}
-?>
-
 <!DOCTYPE html>
 <html>
+
 <head>
   @include('home.css')
-  <style type="text/css">
+
+    <style type="text/css">
     .div_deg {
         display: flex;
         justify-content: center;
         align-items: center;
         margin: 60px;
     }
-     table {
+
+    table {
         border: 2px solid black;
         text-align: center;
         width: 800px;
@@ -83,10 +76,11 @@ label {
     display: inline-block;
     width: 150px;
 }
-    /* Rest of your CSS styles */
-    /* ... */
-  </style>
+
+</style>
+
 </head>
+
 <body>
   <div class="hero_area">
     <!-- header section strats -->
@@ -98,32 +92,35 @@ label {
     <div class="heading_container heading_center">
       <h2>Your Shopping Cart</h2>
     </div>
+
+    
     
     <div class="div_deg">
       <div class="order_deg">
       <form action="{{ url('confirm_order') }}" method="Post">
         @csrf
-        <div class="div_gap">
-            <label>Receiver Name</label>
-            <input type="text" name="name" value="{{ Auth::user()->name }}">
-        </div>
+    <div class="div_gap">
+        <label>Receiver Name</label>
+        <input type="text" name="name" value="{{ Auth::user()->name }}">
+    </div>
 
-        <div class="div_gap">
-            <label>Receiver address</label>
-            <textarea name="address">{{ Auth::user()->address }}</textarea>
-        </div>
+    <div class="div_gap">
+        <label>Receiver address</label>
+        <textarea name="address">{{ Auth::user()->address }}</textarea>
+    </div>
 
-        <div class="div_gap">
-            <label>Receiver phone</label>
-            <input type="text" name="phone" value="{{ Auth::user()->phone }}">
-        </div>
+    <div class="div_gap">
+        <label>Receiver phone</label>
+        <input type="text" name="phone" value="{{ Auth::user()->phone }}">
+    </div>
 
-        <div>
-            <input class="btn btn-primary" type="submit" value="Cash On Delivery">
-            <a class="btn btn-success" href="{{ url('stripe', $total) }}">Pay Using Card</a>
-        </div>
-      </form>
-      </div>
+    <div>
+    <input class="btn btn-primary" type="submit" value="Cash On Delivery">
+
+    <a class="btn btn-success" href="{{ url('stripe','$total') }}">Pay Using Card</a>
+</div>
+</form>
+    </div>
       @if(count($cart) > 0)
         <table>
           <tr>
@@ -167,6 +164,11 @@ label {
     
     @if(count($cart) > 0)
       <div class="cart-total">
+        <?php $total = 0; ?>
+        @foreach($cart as $cartItem)
+          <?php $total += $cartItem->product->price * $cartItem->quantity; ?>
+        @endforeach
+        
         <h4>Total Amount: {{ $total }}</h4>
         <div class="mt-3">
           <a href="{{ url('/') }}" class="btn btn-primary">Continue Shopping</a>
@@ -177,5 +179,6 @@ label {
   
   <!-- info section -->
   @include('home.footer')
+
 </body>
 </html>

@@ -248,7 +248,6 @@ $address = Auth::user()->address;
     $order->user_id = $userid;
     $order->product_id = $carts->product_id;
      $order->quantity = $carts->quantity;
-     $order->payment_status = "paid";
     $order->save();
    
 }
@@ -261,7 +260,6 @@ foreach ($cart_remove as $remove)
     $data->delete();
 }
  toastr()->timeOut(10000)->closeButton()->addSuccess('Orders successfully');
- return redirect('mycart');
+ return redirect()->back();
 }
-
 }

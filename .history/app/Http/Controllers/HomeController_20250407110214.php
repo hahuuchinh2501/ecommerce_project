@@ -263,5 +263,4 @@ foreach ($cart_remove as $remove)
  toastr()->timeOut(10000)->closeButton()->addSuccess('Orders successfully');
  return redirect('mycart');
 }
-
 }

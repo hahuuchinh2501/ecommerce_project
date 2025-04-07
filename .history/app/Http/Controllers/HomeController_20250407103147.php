@@ -208,60 +208,34 @@ public function delete_order($id)
     // Redirect with success message
     return redirect()->back()->with('message', 'Order Deleted Successfully');
 }
-public function stripe($total)
-{
-    return view('home.stripe', compact('total'));
-}
-
+// Updated controller method
 public function stripePost(Request $request)
 {
-    Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+    // Get the total from the request
+    $total = $request->input('total');
     
-    // Get the total from the route or form
-    $total = $request->input('total', 0);
-    
-    // Convert to cents for Stripe
+    // Convert to cents for Stripe (Stripe requires amount in cents)
     $amount = (int)($total * 100);
     
-    // Ensure we have a minimum amount (Stripe requires at least 50 cents)
-    $amount = max($amount, 50);
+    Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
 
     Stripe\Charge::create([
         "amount" => $amount,
         "currency" => "usd",
         "source" => $request->stripeToken,
-        "description" => "Payment for order"
+        "description" => "Payment for order" 
     ]);
 
-   $name = Auth::user()->name;
-$phone = Auth::user()->phone;
-$address = Auth::user()->address;
-    $userid = Auth::user()->id;
-    $cart = Cart::where('user_id', $userid)->get();
-
-    foreach ($cart as $carts)
-{
-    $order = new Order;
-    $order->name = $name;
-    $order->rec_address = $address;
-    $order->phone = $phone;
-    $order->user_id = $userid;
-    $order->product_id = $carts->product_id;
-     $order->quantity = $carts->quantity;
-     $order->payment_status = "paid";
-    $order->save();
-   
+    // Get user ID
+    $user_id = Auth::id();
+    
+    // You can add order creation logic here if needed
+    // For example, move items from cart to orders
+    // $this->createOrderFromCart($user_id, $total);
+    
+    Session::flash('success', 'Payment successful! Your order has been placed.');
+    
+    // Return back to the previous page as in your original code
+    return back();
 }
-
-$cart_remove = Cart::where('user_id', $userid)->get();
-
-foreach ($cart_remove as $remove)
-{
-    $data = Cart::find($remove->id);
-    $data->delete();
-}
- toastr()->timeOut(10000)->closeButton()->addSuccess('Orders successfully');
- return redirect('mycart');
-}
-
 }

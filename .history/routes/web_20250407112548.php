@@ -106,3 +106,4 @@ Route::controller(HomeController::class)->group(function(){
 });
 
 
+Route::get('/products', [HomeController::class, 'products'])->name('products');

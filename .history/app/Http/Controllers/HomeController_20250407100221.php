@@ -210,58 +210,35 @@ public function delete_order($id)
 }
 public function stripe($total)
 {
-    return view('home.stripe', compact('total'));
+    return view('home.stripe',compact('total'));
 }
+    public function stripePost(Request $request)
 
-public function stripePost(Request $request)
-{
-    Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+    {
+
+        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+
     
-    // Get the total from the route or form
-    $total = $request->input('total', 0);
-    
-    // Convert to cents for Stripe
-    $amount = (int)($total * 100);
-    
-    // Ensure we have a minimum amount (Stripe requires at least 50 cents)
-    $amount = max($amount, 50);
 
-    Stripe\Charge::create([
-        "amount" => $amount,
-        "currency" => "usd",
-        "source" => $request->stripeToken,
-        "description" => "Payment for order"
-    ]);
+        Stripe\Charge::create ([
 
-   $name = Auth::user()->name;
-$phone = Auth::user()->phone;
-$address = Auth::user()->address;
-    $userid = Auth::user()->id;
-    $cart = Cart::where('user_id', $userid)->get();
+                "amount" => 100 * 100,
 
-    foreach ($cart as $carts)
-{
-    $order = new Order;
-    $order->name = $name;
-    $order->rec_address = $address;
-    $order->phone = $phone;
-    $order->user_id = $userid;
-    $order->product_id = $carts->product_id;
-     $order->quantity = $carts->quantity;
-     $order->payment_status = "paid";
-    $order->save();
-   
-}
+                "currency" => "usd",
 
-$cart_remove = Cart::where('user_id', $userid)->get();
+                "source" => $request->stripeToken,
 
-foreach ($cart_remove as $remove)
-{
-    $data = Cart::find($remove->id);
-    $data->delete();
-}
- toastr()->timeOut(10000)->closeButton()->addSuccess('Orders successfully');
- return redirect('mycart');
-}
+                "description" => "Test payment from complete" 
 
+        ]);
+
+      
+
+        Session::flash('success', 'Payment successful!');
+
+              
+
+        return back();
+
+    }
 }

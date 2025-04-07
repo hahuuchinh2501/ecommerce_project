@@ -263,5 +263,47 @@ foreach ($cart_remove as $remove)
  toastr()->timeOut(10000)->closeButton()->addSuccess('Orders successfully');
  return redirect('mycart');
 }
-
+public function products(Request $request)
+{
+    $query = Product::query()->where('status', 1); // Assuming you have a status field for active products
+    
+    // Handle search
+    if ($request->has('search')) {
+        $search = $request->input('search');
+        $query->where(function($q) use ($search) {
+            $q->where('title', 'like', "%{$search}%")
+              ->orWhere('description', 'like', "%{$search}%");
+              // Add any other fields you want to search
+        });
+    }
+    
+    // Handle category filter
+    if ($request->has('category')) {
+        $query->where('category_id', $request->input('category'));
+    }
+    
+    // Handle sorting
+    if ($request->has('sort')) {
+        switch ($request->input('sort')) {
+            case 'price_asc':
+                $query->orderBy('price', 'asc');
+                break;
+            case 'price_desc':
+                $query->orderBy('price', 'desc');
+                break;
+            case 'newest':
+                $query->orderBy('created_at', 'desc');
+                break;
+            default:
+                $query->orderBy('id', 'desc'); // Default sorting
+        }
+    } else {
+        $query->orderBy('id', 'desc'); // Default sorting if no sort parameter
+    }
+    
+    // Paginate the results - adjust the number as needed
+    $product = $query->paginate(12);
+    
+    return view('home.view_shop', compact('product'));
+}
 }

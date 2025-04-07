@@ -233,35 +233,11 @@ public function stripePost(Request $request)
         "description" => "Payment for order"
     ]);
 
-   $name = Auth::user()->name;
-$phone = Auth::user()->phone;
-$address = Auth::user()->address;
-    $userid = Auth::user()->id;
-    $cart = Cart::where('user_id', $userid)->get();
-
-    foreach ($cart as $carts)
-{
-    $order = new Order;
-    $order->name = $name;
-    $order->rec_address = $address;
-    $order->phone = $phone;
-    $order->user_id = $userid;
-    $order->product_id = $carts->product_id;
-     $order->quantity = $carts->quantity;
-     $order->payment_status = "paid";
-    $order->save();
-   
+    Session::flash('success', 'Payment successful!');
+    
+    // After successful payment, you might want to process the order
+    // processOrder(Auth::id(), $total);
+    
+    return back();
 }
-
-$cart_remove = Cart::where('user_id', $userid)->get();
-
-foreach ($cart_remove as $remove)
-{
-    $data = Cart::find($remove->id);
-    $data->delete();
-}
- toastr()->timeOut(10000)->closeButton()->addSuccess('Orders successfully');
- return redirect('mycart');
-}
-
 }

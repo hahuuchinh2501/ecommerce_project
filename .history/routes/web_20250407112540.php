@@ -79,7 +79,7 @@ Route::get('remove_cart/{id}', [HomeController::class, 'remove_cart']);
 
 Route::post('update_cart_quantity/{id}', [HomeController::class, 'update_cart_quantity']);
 
-
+// Replace your current route with this:
 Route::get('view_shop', [HomeController::class, 'view_shop']);
 
 Route::post('confirm_order', [HomeController::class, 'confirm_order'])->middleware(['auth', 'verified']);
@@ -106,3 +106,4 @@ Route::controller(HomeController::class)->group(function(){
 });
 
 
+Route::get('/products', [HomeController::class, 'products'])->name('products');
