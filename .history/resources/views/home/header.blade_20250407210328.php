@@ -6,6 +6,64 @@
   <title>shopPING - Fashion Store</title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   @include('home.css')
+  <style>
+    /* Additional styles for the logout button */
+    .logout-btn {
+      background-color: #ff6b6b;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .logout-btn i {
+      margin-right: 6px;
+    }
+    
+    .logout-btn:hover {
+      background-color: #ff5252;
+    }
+    
+    .logout-form {
+      margin: 0;
+      margin-left: 15px;
+    }
+    
+    /* Ensure the logout button is visible on all screen sizes */
+    @media (max-width: 992px) {
+      .direct-logout {
+        display: block !important;
+      }
+      
+      .user-actions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        align-items: center;
+      }
+    }
+    
+    /* Simplified navigation for very small screens */
+    @media (max-width: 576px) {
+      .user-actions {
+        justify-content: space-between;
+      }
+      
+      .action-btn span {
+        display: none;
+      }
+      
+      .logout-btn span {
+        display: inline;
+      }
+    }
+  </style>
 </head>
 <body>
   <header class="header">

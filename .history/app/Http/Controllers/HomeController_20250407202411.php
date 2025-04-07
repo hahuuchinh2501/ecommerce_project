@@ -300,9 +300,9 @@ public function view_contact()
         // Get cart count for authenticated users
         $count = 0;
         if(Auth::check()) {
-            $count = Cart::where('user_id', Auth::id())->count();
+            $count = \App\Models\Cart::where('user_id', Auth::id())->count();
         }
         
-        return view('home.search_result', compact('products', 'search_text', 'count'));
+        return view('home.search_results', compact('products', 'search_text', 'count'));
     }
 }

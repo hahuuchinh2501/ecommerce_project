@@ -303,6 +303,6 @@ public function view_contact()
             $count = Cart::where('user_id', Auth::id())->count();
         }
         
-        return view('home.search_result', compact('products', 'search_text', 'count'));
+        return view('home.search_results', compact('product', 'search_text', 'count'));
     }
 }
