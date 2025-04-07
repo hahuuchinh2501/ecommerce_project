@@ -3,67 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>shopPING - Fashion Store</title>
+  <title>Giftos - Fashion Store</title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-  @include('home.css')
-  <style>
-    /* Additional styles for the logout button */
-    .logout-btn {
-      background-color: #ff6b6b;
-      color: white;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: 500;
-      transition: all 0.3s ease;
-      font-size: 14px;
-      display: flex;
-      align-items: center;
-    }
-    
-    .logout-btn i {
-      margin-right: 6px;
-    }
-    
-    .logout-btn:hover {
-      background-color: #ff5252;
-    }
-    
-    .logout-form {
-      margin: 0;
-      margin-left: 15px;
-    }
-    
-    /* Ensure the logout button is visible on all screen sizes */
-    @media (max-width: 992px) {
-      .direct-logout {
-        display: block !important;
-      }
-      
-      .user-actions {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: flex-end;
-        align-items: center;
-      }
-    }
-    
-    /* Simplified navigation for very small screens */
-    @media (max-width: 576px) {
-      .user-actions {
-        justify-content: space-between;
-      }
-      
-      .action-btn span {
-        display: none;
-      }
-      
-      .logout-btn span {
-        display: inline;
-      }
-    }
-  </style>
+ @include('home.css')
 </head>
 <body>
   <header class="header">
@@ -83,53 +25,65 @@
           </li>
           <li class="nav-item dropdown">
             <a href="{{ url('view_shop') }}" class="nav-link">Shop</a>
-        
+            <div class="dropdown-menu">
+              <a href="#" class="dropdown-item">Men's Collection</a>
+              <a href="#" class="dropdown-item">Women's Collection</a>
+              <a href="#" class="dropdown-item">New Arrivals</a>
+              <a href="#" class="dropdown-item">Sale Items</a>
+            </div>
           </li>
-        
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link">Collections</a>
+            <div class="dropdown-menu">
+              <a href="#" class="dropdown-item">Spring/Summer 2025</a>
+              <a href="#" class="dropdown-item">Fall/Winter 2024</a>
+              <a href="#" class="dropdown-item">Accessories</a>
+              <a href="#" class="dropdown-item">Footwear</a>
+            </div>
+          </li>
           <li class="nav-item">
             <a href="{{ url('view_contact') }}" class="nav-link">Contact Us</a>
           </li>
         </ul>
         
         <div class="user-actions">
+          <form class="search-form">
+            <input type="text" class="search-input" placeholder="Search products...">
+            <button type="submit" class="search-btn">
+              <i class="fas fa-search"></i>
+            </button>
+          </form>
+          
           @if (Route::has('login'))
             @auth
               <a href="{{ url('myorders') }}" class="action-btn">
                 <i class="fas fa-list-ul"></i>
                 <span>Orders</span>
               </a>
+           
+              </a>
               <a href="{{ url('mycart') }}" class="action-btn">
                 <i class="fas fa-shopping-bag"></i>
                 <span>Cart</span>
                 <span class="cart-count">{{ $count }}</span>
               </a>
-                <form class="search-form">
-                <input type="text" class="search-input" placeholder="Search products...">
-                <button type="submit" class="search-btn">
-                  <i class="fas fa-search"></i>
-                </button>
-              </form>
-            
-              
-              <!-- Always visible logout button -->
-              <form method="POST" action="{{ route('logout') }}" class="logout-form">
-                @csrf
-                <button type="submit" class="logout-btn">
-                  <i class="fas fa-sign-out-alt"></i>
-                  <span>Logout</span>
-                </button>
-              </form>
-              <a style="margin-left: 20px;">welcome: {{ Auth::user()->name }}</a>
-              
+              <div class="dropdown">
+                <a href="#" class="action-btn">
+                  <i class="fas fa-user-circle"></i>
+                  <span>Account</span>
+                </a>
+                <div class="dropdown-menu">
+                  <a href="{{ url('profile') }}" class="dropdown-item">My Profile</a>
+                  <a href="{{ url('myorders') }}" class="dropdown-item">My Orders</a>
+                  <a href="{{ url('settings') }}" class="dropdown-item">Settings</a>
+                  <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="dropdown-item">Logout</button>
+                  </form>
+                </div>
+              </div>
             @else
-              <form class="search-form">
-                <input type="text" class="search-input" placeholder="Search products...">
-                <button type="submit" class="search-btn">
-                  <i class="fas fa-search"></i>
-                </button>
-              </form>
-              
-              <a href="{{ url('/login') }}" class="action-btn" style="margin: 10px;">
+              <a href="{{ url('/login') }}" class="action-btn">
                 <i class="fas fa-sign-in-alt"></i>
                 <span>Login</span>
               </a>

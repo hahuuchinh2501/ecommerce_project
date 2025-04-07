@@ -103,13 +103,6 @@
                 <span>Cart</span>
                 <span class="cart-count">{{ $count }}</span>
               </a>
-                <form class="search-form">
-                <input type="text" class="search-input" placeholder="Search products...">
-                <button type="submit" class="search-btn">
-                  <i class="fas fa-search"></i>
-                </button>
-              </form>
-            
               
               <!-- Always visible logout button -->
               <form method="POST" action="{{ route('logout') }}" class="logout-form">
@@ -119,8 +112,6 @@
                   <span>Logout</span>
                 </button>
               </form>
-              <a style="margin-left: 20px;">welcome: {{ Auth::user()->name }}</a>
-              
             @else
               <form class="search-form">
                 <input type="text" class="search-input" placeholder="Search products...">
@@ -129,7 +120,7 @@
                 </button>
               </form>
               
-              <a href="{{ url('/login') }}" class="action-btn" style="margin: 10px;">
+              <a href="{{ url('/login') }}" class="action-btn">
                 <i class="fas fa-sign-in-alt"></i>
                 <span>Login</span>
               </a>

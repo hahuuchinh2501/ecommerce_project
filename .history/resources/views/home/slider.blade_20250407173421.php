@@ -1,5 +1,5 @@
 
-    <section class="slider_section" style="padding-top: 100px;">
+    <section class="slider_section" style="padding-top: 300px;">
       <div class="slider_container">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
           <div class="carousel-inner">

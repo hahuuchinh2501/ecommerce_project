@@ -12,13 +12,12 @@
     justify-content: center;
     align-items: center;
     margin: 60px;
-    
 }
 
 table {
     border: 2px solid black;
     text-align: center;
-    width: 1000px;
+    width: 800px;
 }
 th {
     border: 2px solid skyblue;
@@ -49,7 +48,6 @@ td {
         <th>price</th>
         <th>quantity</th>
         <th>Delivery Status</th>
-        <th>payment status</th>
          <th>Image</th>
         <th>Action</th>
        
@@ -61,7 +59,6 @@ td {
             <td>{{ $order->product->price }}</td>
             <td>{{ $order->quantity }}</td>
             <td>{{ $order->status }}</td>
-            <td>{{ $order->payment_status }}</td>
             <td><img height="200" width="200" src="products/{{ $order->product->image1 }}"></td>
              <td>
             <a onclick="return confirm('Are you sure you want to delete this order?')" 

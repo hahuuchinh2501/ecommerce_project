@@ -1,3 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  @include('home.css')
+</head>
+
+<body>
+  <div class="hero_area " style="padding: 50px">
+    <!-- header section strats -->
+   @include('home.header')
+    <!-- end header section -->
+    <!-- slider section -->
+   
+
+  <!-- end shop section -->
+
+
 <section class="contact_section py-5">
   <div class="container">
     <div class="row">
@@ -40,3 +58,21 @@
     </div>
   </div>
 </section>
+
+
+
+
+  <!-- contact section -->
+
+ 
+  <!-- end contact section -->
+
+   
+
+  <!-- info section -->
+
+ @include('home.footer')
+
+</body>
+
+</html>

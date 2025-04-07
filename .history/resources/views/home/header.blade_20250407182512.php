@@ -119,7 +119,7 @@
                   <span>Logout</span>
                 </button>
               </form>
-              <a style="margin-left: 20px;">welcome: {{ Auth::user()->name }}</a>
+              <a style="margin-right: 20px;">welcome: {{ Auth::user()->name }}</a>
               
             @else
               <form class="search-form">
@@ -129,7 +129,7 @@
                 </button>
               </form>
               
-              <a href="{{ url('/login') }}" class="action-btn" style="margin: 10px;">
+              <a href="{{ url('/login') }}" class="action-btn">
                 <i class="fas fa-sign-in-alt"></i>
                 <span>Login</span>
               </a>

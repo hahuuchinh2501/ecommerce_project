@@ -1,5 +1,5 @@
 
-    <section class="slider_section" style="padding-top: 100px;">
+    <section class="slider_section">
       <div class="slider_container">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
           <div class="carousel-inner">
@@ -15,7 +15,7 @@
                       <p>
                         Sequi perspiciatis nulla reiciendis, rem, tenetur impedit, eveniet non necessitatibus error distinctio mollitia suscipit. Nostrum fugit doloribus consequatur distinctio esse, possimus maiores aliquid repellat beatae cum, perspiciatis enim, accusantium perferendis.
                       </p>
-                      <a href="{{ url('view_contact') }}">
+                      <a href="">
                         Contact Us
                       </a>
                     </div>

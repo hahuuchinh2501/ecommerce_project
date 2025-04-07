@@ -12,13 +12,13 @@
     justify-content: center;
     align-items: center;
     margin: 60px;
-    
+    width: 800px;
 }
 
 table {
     border: 2px solid black;
     text-align: center;
-    width: 1000px;
+    width: 800px;
 }
 th {
     border: 2px solid skyblue;

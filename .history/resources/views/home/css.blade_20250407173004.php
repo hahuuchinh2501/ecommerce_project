@@ -10,7 +10,7 @@
   <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
 
   <title>
-    Shopping
+    Giftos
   </title>
 
   <!-- slider stylesheet -->
@@ -43,7 +43,7 @@
     
     .header {
       position: fixed;
-      top: 0;
+      top: 20;
       left: 0;
       right: 0;
       z-index: 1000;

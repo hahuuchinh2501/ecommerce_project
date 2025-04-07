@@ -129,7 +129,7 @@
                 </button>
               </form>
               
-              <a href="{{ url('/login') }}" class="action-btn" style="margin: 10px;">
+              <a href="{{ url('/login') }}" class="action-btn">
                 <i class="fas fa-sign-in-alt"></i>
                 <span>Login</span>
               </a>

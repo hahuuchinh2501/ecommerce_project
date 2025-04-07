@@ -83,7 +83,12 @@
           </li>
           <li class="nav-item dropdown">
             <a href="{{ url('view_shop') }}" class="nav-link">Shop</a>
-        
+            <div class="dropdown-menu">
+              <a href="#" class="dropdown-item">Men's Collection</a>
+              <a href="#" class="dropdown-item">Women's Collection</a>
+              <a href="#" class="dropdown-item">New Arrivals</a>
+              <a href="#" class="dropdown-item">Sale Items</a>
+            </div>
           </li>
         
           <li class="nav-item">
@@ -103,13 +108,6 @@
                 <span>Cart</span>
                 <span class="cart-count">{{ $count }}</span>
               </a>
-                <form class="search-form">
-                <input type="text" class="search-input" placeholder="Search products...">
-                <button type="submit" class="search-btn">
-                  <i class="fas fa-search"></i>
-                </button>
-              </form>
-            
               
               <!-- Always visible logout button -->
               <form method="POST" action="{{ route('logout') }}" class="logout-form">
@@ -119,8 +117,6 @@
                   <span>Logout</span>
                 </button>
               </form>
-              <a style="margin-left: 20px;">welcome: {{ Auth::user()->name }}</a>
-              
             @else
               <form class="search-form">
                 <input type="text" class="search-input" placeholder="Search products...">
@@ -129,7 +125,7 @@
                 </button>
               </form>
               
-              <a href="{{ url('/login') }}" class="action-btn" style="margin: 10px;">
+              <a href="{{ url('/login') }}" class="action-btn">
                 <i class="fas fa-sign-in-alt"></i>
                 <span>Login</span>
               </a>
