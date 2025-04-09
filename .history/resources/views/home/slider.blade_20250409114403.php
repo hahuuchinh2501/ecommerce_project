@@ -13,7 +13,7 @@
                         Shopping
                       </h1>
                       <p>
-                     shop clothes and shoe store for everyone
+                        Sequi perspiciatis nulla reiciendis, rem, tenetur impedit, eveniet non necessitatibus error distinctio mollitia suscipit. Nostrum fugit doloribus consequatur distinctio esse, possimus maiores aliquid repellat beatae cum, perspiciatis enim, accusantium perferendis.
                       </p>
                       <a href="{{ url('view_contact') }}">
                         Contact Us

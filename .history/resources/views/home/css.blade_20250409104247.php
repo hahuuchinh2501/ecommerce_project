@@ -407,17 +407,12 @@
         display: inline;
       }
     }
-    .toast-success {
-    background-color: #51A351 !important;
-    color: white !important;
-}
-.toast-error {
-    background-color: #BD362F !important;
-    color: white !important;
-}
 
-
-    
+    .alert-success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+    background-color: #4CAF50; /* Màu xanh lá cây */
+    color: white; /* Màu chữ trắng để tương phản */
+}
   </style>
-
-  

@@ -1,3 +1,4 @@
+<div>
 <section class="info_section  layout_padding2-top">
     <div class="social_container">
       <div class="social_box">
@@ -81,6 +82,7 @@
     <!-- footer section -->
 
   </section>
+  </div>
 
   <!-- end info section -->
 

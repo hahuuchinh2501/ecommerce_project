@@ -85,20 +85,20 @@ public function add_cart(Request $request, $id)
     $user = Auth::user();
     $user_id = $user->id;
     
-   
+    // Lấy số lượng từ request, mặc định là 1 nếu không có
     $quantity = $request->quantity ?? 1;
     
-    
+    // Kiểm tra xem sản phẩm đã có trong giỏ hàng chưa
     $existing_cart = Cart::where('user_id', $user_id)
                          ->where('product_id', $product_id)
                          ->first();
     
     if ($existing_cart) {
-        
+        // Nếu sản phẩm đã có trong giỏ hàng, cập nhật số lượng
         $existing_cart->quantity += $quantity;
         $existing_cart->save();
     } else {
-        
+        // Nếu chưa có, tạo mới
         $data = new Cart;
         $data->user_id = $user_id;
         $data->product_id = $product_id;

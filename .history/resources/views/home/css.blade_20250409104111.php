@@ -25,7 +25,7 @@
   <link href="{{asset('css/responsive.css')}}" rel="stylesheet" />
    <style>
     :root {
-      --primary: #ff6b6b;
+      --primary:rgb(52, 201, 6);
       --secondary: #1e1e2c;
       --light: #f8f9fa;
       --dark: #212529;
@@ -407,17 +407,4 @@
         display: inline;
       }
     }
-    .toast-success {
-    background-color: #51A351 !important;
-    color: white !important;
-}
-.toast-error {
-    background-color: #BD362F !important;
-    color: white !important;
-}
-
-
-    
   </style>
-
-  

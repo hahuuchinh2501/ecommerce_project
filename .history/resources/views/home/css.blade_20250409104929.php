@@ -407,17 +407,4 @@
         display: inline;
       }
     }
-    .toast-success {
-    background-color: #51A351 !important;
-    color: white !important;
-}
-.toast-error {
-    background-color: #BD362F !important;
-    color: white !important;
-}
-
-
-    
   </style>
-
-  
