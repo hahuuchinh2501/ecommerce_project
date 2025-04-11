@@ -358,6 +358,6 @@ public function delete_user($id)
     public function destroy($id)
     {
         Contact::findOrFail($id)->delete();
-        return redirect()->route('admin.view_contacts')->with('success', 'Message deleted successfully');
+        return redirect()->route('admin.contacts.index')->with('success', 'Message deleted successfully');
     }
 }

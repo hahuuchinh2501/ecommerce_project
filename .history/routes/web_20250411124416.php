@@ -109,11 +109,3 @@ Route::get('view_contact', [HomeController::class, 'view_contact']);
 Route::post('view_contact', [HomeController::class, 'store'])->name('view_contact.store');
 
 Route::get('search', [HomeController::class, 'search']);
-
-
-Route::prefix('admin')->middleware(['auth', 'admin'])->group(function() {
-    Route::get('view_contacts', [AdminController::class, 'view_contacts'])->name('admin.view_contacts');
-    Route::get('view_contacts/{id}', [AdminController::class, 'show'])->name('admin.show_contact');
-    Route::put('view_contacts/{id}/read', [AdminController::class, 'markAsRead'])->name('admin.view_contacts.read');
-    Route::delete('view_contacts/{id}', [AdminController::class, 'destroy'])->name('admin.view_contacts.destroy');
-});

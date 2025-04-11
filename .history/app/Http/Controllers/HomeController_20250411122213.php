@@ -20,8 +20,6 @@ use Stripe;
 
 use Session;
 
-use App\Models\Contact;
-
 class HomeController extends Controller
 {
     public function index()

@@ -1,3 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  @include('home.css')
+</head>
+
+<body>
+  <div class="hero_area " style="padding: 50px">
+    <!-- header section strats -->
+   @include('home.header')
+    <!-- end header section -->
+    <!-- slider section -->
+   
+
+  <!-- end shop section -->
+
+
 <section class="contact_section py-5">
   <div class="container">
     @if(session('success'))
@@ -30,7 +48,7 @@
         </div>
       </div>
       <div class="col-md-6">
-        <form action="{{ route('view_contact.store') }}" method="POST">
+        <form action="{{ route('contact.store') }}" method="POST">
           @csrf
           <div class="form-group">
             <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="Name" value="{{ old('name') }}" required />
@@ -62,3 +80,21 @@
     </div>
   </div>
 </section>
+
+
+
+
+  <!-- contact section -->
+
+ 
+  <!-- end contact section -->
+
+   
+
+  <!-- info section -->
+
+ @include('home.footer')
+
+</body>
+
+</html>

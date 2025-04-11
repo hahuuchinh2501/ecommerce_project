@@ -113,7 +113,7 @@ Route::get('search', [HomeController::class, 'search']);
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function() {
     Route::get('view_contacts', [AdminController::class, 'view_contacts'])->name('admin.view_contacts');
-    Route::get('view_contacts/{id}', [AdminController::class, 'show'])->name('admin.show_contact');
-    Route::put('view_contacts/{id}/read', [AdminController::class, 'markAsRead'])->name('admin.view_contacts.read');
-    Route::delete('view_contacts/{id}', [AdminController::class, 'destroy'])->name('admin.view_contacts.destroy');
+    Route::get('view_contacts/{id}', [AdminController::class, 'show'])->name('admin.contacts.show');
+    Route::put('view_contacts/{id}/read', [AdminController::class, 'markAsRead'])->name('admin.contacts.read');
+    Route::delete('/contacts/{id}', [ContactController::class, 'destroy'])->name('admin.contacts.destroy');
 });

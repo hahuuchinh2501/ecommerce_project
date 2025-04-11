@@ -11,7 +11,6 @@ use App\Models\Product;
 use App\Models\Order;
  use Barryvdh\DomPDF\Facade\Pdf;
  use App\Models\User;
- use App\Models\Contact;
 
 
 use Flasher\Toastr\Laravel\FlasherToastrServiceProvider;
@@ -335,7 +334,7 @@ public function delete_user($id)
         return view('admin.view_contacts', compact('contacts'));
     }
     
-    
+    // Method to mark message as read
     public function markAsRead($id)
     {
         $contact = Contact::findOrFail($id);
@@ -344,20 +343,20 @@ public function delete_user($id)
         return redirect()->back()->with('success', 'Message marked as read');
     }
     
-    
+    // Method to view a specific message
     public function show($id)
     {
         $contact = Contact::findOrFail($id);
         if (!$contact->is_read) {
             $contact->update(['is_read' => true]);
         }
-        return view('admin.show_contact', compact('contact'));
+        return view('admin.contacts.show', compact('contact'));
     }
     
- 
+    // Method to delete a message
     public function destroy($id)
     {
         Contact::findOrFail($id)->delete();
-        return redirect()->route('admin.view_contacts')->with('success', 'Message deleted successfully');
+        return redirect()->route('admin.contacts.index')->with('success', 'Message deleted successfully');
     }
 }

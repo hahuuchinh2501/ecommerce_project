@@ -335,7 +335,7 @@ public function delete_user($id)
         return view('admin.view_contacts', compact('contacts'));
     }
     
-    
+    // Method to mark message as read
     public function markAsRead($id)
     {
         $contact = Contact::findOrFail($id);
@@ -351,13 +351,13 @@ public function delete_user($id)
         if (!$contact->is_read) {
             $contact->update(['is_read' => true]);
         }
-        return view('admin.show_contact', compact('contact'));
+        return view('admin.view_contacts.show', compact('contact'));
     }
     
  
     public function destroy($id)
     {
         Contact::findOrFail($id)->delete();
-        return redirect()->route('admin.view_contacts')->with('success', 'Message deleted successfully');
+        return redirect()->route('admin.contacts.index')->with('success', 'Message deleted successfully');
     }
 }

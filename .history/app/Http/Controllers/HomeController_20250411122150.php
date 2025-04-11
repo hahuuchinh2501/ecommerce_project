@@ -20,8 +20,6 @@ use Stripe;
 
 use Session;
 
-use App\Models\Contact;
-
 class HomeController extends Controller
 {
     public function index()
@@ -321,7 +319,7 @@ foreach ($cart_remove as $remove)
         } else {
             $count = '';
         }
-        return view('home.view_contact',compact('product','count'));
+        return view('home.view_contact');
     }
     
     public function store(Request $request)
