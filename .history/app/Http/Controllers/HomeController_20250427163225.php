@@ -203,11 +203,7 @@ public function delete_order($id)
     if ($order->user_id != Auth::id()) {
         return redirect()->back()->with('message', 'Unauthorized action');
     }
-   
-      if ($order->payment_status == 'paid' || $order->status == 'Delivered') {
-        toastr()->timeOut(5000)->closeButton()->addError('Cannot delete orders that have been paid or delivered');
-        return redirect()->back();
-    }
+    
    
     $order->delete();
     
