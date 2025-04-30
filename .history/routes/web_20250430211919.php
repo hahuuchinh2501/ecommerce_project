@@ -119,5 +119,5 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function() {
 });
 
 
-Route::get('sales_report', [AdminController::class, 'sales_report']);
-Route::get('filter_sales_report', [AdminController::class, 'filter_sales_report']);
+Route::get('/sales_report', [AdminController::class, 'sales_report']);
+Route::get('/filter_sales_report', [AdminController::class, 'filter_sales_report']);

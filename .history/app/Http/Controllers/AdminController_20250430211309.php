@@ -368,7 +368,7 @@ public function sales_report()
 {
     // Get all completed orders (delivered status and paid)
     $completedOrders = Order::where('status', 'Delivered')
-                           ->orWhere('payment_status', 'paid')
+                           ->where('payment_status', 'paid')
                            ->get();
     
     // Initialize sales data array
@@ -432,7 +432,7 @@ public function filter_sales_report(Request $request)
     
     // Base query
     $query = Order::where('status', 'Delivered')
-                 ->orWhere('payment_status', 'paid');
+                 ->where('payment_status', 'paid');
     
     // Apply date filters if provided
     if ($date_from && $date_to) {
@@ -502,5 +502,58 @@ public function filter_sales_report(Request $request)
     return view('admin.sales_report', compact('salesData', 'totalRevenue', 'categories', 'brands', 'category', 'brand', 'date_from', 'date_to'));
 }
 
-
+public function export_sales_report_pdf()
+{
+    // Get all completed orders
+    $completedOrders = Order::where('status', 'Delivered')
+                           ->where('payment_status', 'paid')
+                           ->get();
+    
+    // Initialize sales data array
+    $salesData = [];
+    $totalRevenue = 0;
+    
+    // Process each order
+    foreach ($completedOrders as $order) {
+        $product = Product::find($order->product_id);
+        
+        if ($product) {
+            $productId = $product->id;
+            $productPrice = $product->price;
+            $orderQuantity = $order->quantity;
+            $revenue = $productPrice * $orderQuantity;
+            
+            // Add to total revenue
+            $totalRevenue += $revenue;
+            
+            // If product already exists in the array, update quantities and revenue
+            if (isset($salesData[$productId])) {
+                $salesData[$productId]['quantity'] += $orderQuantity;
+                $salesData[$productId]['revenue'] += $revenue;
+            } else {
+                // Add new product to the array
+                $salesData[$productId] = [
+                    'id' => $productId,
+                    'title' => $product->title,
+                    'price' => $productPrice,
+                    'quantity' => $orderQuantity,
+                    'revenue' => $revenue,
+                    'category' => $product->category,
+                    'brand' => $product->brand
+                ];
+            }
+        }
+    }
+    
+    // Convert associative array to indexed array
+    $salesData = array_values($salesData);
+    
+    // Sort by revenue (highest to lowest)
+    usort($salesData, function($a, $b) {
+        return $b['revenue'] - $a['revenue'];
+    });
+    
+    $pdf = Pdf::loadView('admin.sales_report_pdf', compact('salesData', 'totalRevenue'));
+    return $pdf->download('sales_report.pdf');
+}
 }

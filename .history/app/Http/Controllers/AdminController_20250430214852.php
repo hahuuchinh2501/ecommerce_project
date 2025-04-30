@@ -432,7 +432,7 @@ public function filter_sales_report(Request $request)
     
     // Base query
     $query = Order::where('status', 'Delivered')
-                 ->orWhere('payment_status', 'paid');
+                 ->where('payment_status', 'paid');
     
     // Apply date filters if provided
     if ($date_from && $date_to) {
