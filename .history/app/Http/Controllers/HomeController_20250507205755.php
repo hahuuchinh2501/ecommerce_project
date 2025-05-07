@@ -193,79 +193,42 @@ class HomeController extends Controller
         return view('home.view_shop', compact('product', 'count'));
     }
 
-   public function confirm_order(Request $request)
-{
-    $name = $request->name;
-    $address = $request->address;
-    $phone = $request->phone;
-    $userid = Auth::user()->id;
-    $cart = Cart::where('user_id', $userid)->get();
-    
-    // Kiểm tra giỏ hàng trống
-    if ($cart->isEmpty()) {
-        toastr()->timeOut(10000)->closeButton()->addError('Giỏ hàng của bạn đang trống.');
-        return redirect()->back();
-    }
-    
-    // Kiểm tra tồn kho trước khi tạo đơn hàng
-    $invalidItems = [];
-    
-    foreach ($cart as $cartItem) {
-        $product = Product::find($cartItem->product_id);
-        
-        if (!$product || $product->quantity < $cartItem->quantity) {
+    public function confirm_order(Request $request)
+    {
+        $name = $request->name;
+        $address = $request->address;
+        $phone = $request->phone;
+        $userid = Auth::user()->id;
+        $cart = Cart::where('user_id', $userid)->get();
+
+        foreach ($cart as $carts) {
+            $order = new Order;
+            $order->name = $name;
+            $order->rec_address = $address;
+            $order->phone = $phone;
+            $order->user_id = $userid;
+            $order->product_id = $carts->product_id;
+            $order->quantity = $carts->quantity;
+            $order->save();
+
+
+            $product = Product::find($carts->product_id);
             if ($product) {
-                $invalidItems[] = [
-                    'product_name' => $product->title,
-                    'requested' => $cartItem->quantity,
-                    'available' => $product->quantity
-                ];
-            } else {
-                $invalidItems[] = [
-                    'product_name' => 'Sản phẩm không tồn tại',
-                    'requested' => $cartItem->quantity,
-                    'available' => 0
-                ];
-            }
+                $product->quantity -= $carts->quantity;
+                $product->save();
         }
-    }
-    
-    // Nếu có sản phẩm không hợp lệ, hiển thị thông báo lỗi
-    if (!empty($invalidItems)) {
-        $errorMessage = 'Đơn hàng không thể hoàn tất do một số sản phẩm không đủ số lượng:';
-        foreach ($invalidItems as $item) {
-            $errorMessage .= "<br>- {$item['product_name']}: Yêu cầu {$item['requested']}, Còn lại {$item['available']}";
+
         }
-        
-        toastr()->timeOut(10000)->closeButton()->addError($errorMessage);
+
+        $cart_remove = Cart::where('user_id', $userid)->get();
+
+        foreach ($cart_remove as $remove) {
+            $data = Cart::find($remove->id);
+            $data->delete();
+        }
+        toastr()->timeOut(10000)->closeButton()->addSuccess('Đơn hàng đã được đặt thành công');
         return redirect()->back();
     }
-    
-    // Tiến hành tạo đơn hàng
-    foreach ($cart as $cartItem) {
-        $order = new Order;
-        $order->name = $name;
-        $order->rec_address = $address;
-        $order->phone = $phone;
-        $order->user_id = $userid;
-        $order->product_id = $cartItem->product_id;
-        $order->quantity = $cartItem->quantity;
-        $order->save();
-        
-        // Giảm số lượng tồn kho
-        $product = Product::find($cartItem->product_id);
-        if ($product) {
-            $product->quantity -= $cartItem->quantity;
-            $product->save();
-        }
-    }
-    
-    // Xóa giỏ hàng sau khi đặt hàng
-    Cart::where('user_id', $userid)->delete();
-    
-    toastr()->timeOut(10000)->closeButton()->addSuccess('Đơn hàng đã được đặt thành công');
-    return redirect()->back();
-}
 
     public function myorders()
     {
@@ -305,99 +268,61 @@ class HomeController extends Controller
         return view('home.stripe', compact('total'));
     }
 
-   public function stripePost(Request $request)
-{
-    $userid = Auth::user()->id;
-    $cart = Cart::where('user_id', $userid)->get();
-    
-    // Kiểm tra giỏ hàng trống
-    if ($cart->isEmpty()) {
-        toastr()->timeOut(10000)->closeButton()->addError('Giỏ hàng của bạn đang trống.');
-        return redirect('mycart');
-    }
-    
-    // Kiểm tra tồn kho trước khi tạo đơn hàng
-    $invalidItems = [];
-    
-    foreach ($cart as $cartItem) {
-        $product = Product::find($cartItem->product_id);
-        
-        if (!$product || $product->quantity < $cartItem->quantity) {
-            if ($product) {
-                $invalidItems[] = [
-                    'product_name' => $product->title,
-                    'requested' => $cartItem->quantity,
-                    'available' => $product->quantity
-                ];
-            } else {
-                $invalidItems[] = [
-                    'product_name' => 'Sản phẩm không tồn tại',
-                    'requested' => $cartItem->quantity,
-                    'available' => 0
-                ];
-            }
-        }
-    }
-    
-    // Nếu có sản phẩm không hợp lệ, hiển thị thông báo lỗi
-    if (!empty($invalidItems)) {
-        $errorMessage = 'Thanh toán không thể hoàn tất do một số sản phẩm không đủ số lượng:';
-        foreach ($invalidItems as $item) {
-            $errorMessage .= "<br>- {$item['product_name']}: Yêu cầu {$item['requested']}, Còn lại {$item['available']}";
-        }
-        
-        toastr()->timeOut(10000)->closeButton()->addError($errorMessage);
-        return redirect('mycart');
-    }
-    
-    Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+    public function stripePost(Request $request)
+    {
+        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
 
-    $total = $request->input('total', 0);
-    $amount = (int)($total * 100);
-    $amount = max($amount, 50);
 
-    try {
+        $total = $request->input('total', 0);
+
+
+        $amount = (int)($total * 100);
+
+
+        $amount = max($amount, 50);
+
         Stripe\Charge::create([
             "amount" => $amount,
             "currency" => "usd",
             "source" => $request->stripeToken,
             "description" => "Thanh toán cho đơn hàng"
         ]);
-        
+
         $name = Auth::user()->name;
         $phone = Auth::user()->phone;
         $address = Auth::user()->address;
-        
-        // Tạo đơn hàng và giảm số lượng tồn kho
-        foreach ($cart as $cartItem) {
+        $userid = Auth::user()->id;
+        $cart = Cart::where('user_id', $userid)->get();
+
+        foreach ($cart as $carts) {
             $order = new Order;
             $order->name = $name;
             $order->rec_address = $address;
             $order->phone = $phone;
             $order->user_id = $userid;
-            $order->product_id = $cartItem->product_id;
-            $order->quantity = $cartItem->quantity;
+            $order->product_id = $carts->product_id;
+            $order->quantity = $carts->quantity;
             $order->payment_status = "Đã Thanh Toán";
             $order->save();
-            
-            // Giảm số lượng tồn kho
-            $product = Product::find($cartItem->product_id);
+
+
+             $product = Product::find($carts->product_id);
             if ($product) {
-                $product->quantity -= $cartItem->quantity;
+                $product->quantity -= $carts->quantity;
                 $product->save();
-            }
         }
-        
-        // Xóa giỏ hàng
-        Cart::where('user_id', $userid)->delete();
-        
-        toastr()->timeOut(10000)->closeButton()->addSuccess('Thanh toán thành công và đơn hàng đã được tạo');
-        return redirect('mycart');
-    } catch (\Exception $e) {
-        toastr()->timeOut(10000)->closeButton()->addError('Lỗi thanh toán: ' . $e->getMessage());
+
+        }
+
+        $cart_remove = Cart::where('user_id', $userid)->get();
+
+        foreach ($cart_remove as $remove) {
+            $data = Cart::find($remove->id);
+            $data->delete();
+        }
+        toastr()->timeOut(10000)->closeButton()->addSuccess('Đơn hàng thành công');
         return redirect('mycart');
     }
-}
 
     // public function view_contact()
     // {

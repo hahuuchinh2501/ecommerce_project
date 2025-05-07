@@ -175,9 +175,7 @@
                                             <h6>Thương Hiệu: <span class="text-muted">{{ $data->brand }}</span></h6>
                                         </div>
                                         <div class="col-md-4">
-                                            <h6>Còn Lại:  <span class="{{ $data->quantity <= 0 ? 'text-danger' : 'text-muted' }}">
-                        {{ $data->quantity > 0 ? $data->quantity : 'Hết hàng' }}
-                    </span></h6>
+                                            <h6>Còn Lại: <span class="text-muted">{{ $data->quantity }}</span></h6>
                                         </div>
                                     </div>
                                 </div>
@@ -207,9 +205,6 @@
                             <div class="alert alert-warning">
                                 Không tìm thấy sản phẩm hoặc sản phẩm đã bị xóa.
                             </div>
-                              <div class="alert alert-warning mt-3">
-            <strong>Thông báo:</strong> Sản phẩm này hiện đã hết hàng.
-        </div>
                         @endif
                     </div>
                 </div>

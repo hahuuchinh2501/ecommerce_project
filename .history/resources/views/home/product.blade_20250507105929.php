@@ -37,13 +37,9 @@
                         <a class="btn btn-dark" style="color: white" href="{{ url('product_details', $products->id) }}">
                             Chi Tiết
                         </a>
-                       @if($products->quantity > 0)
-                <a class="btn btn-white" style="border: 1px solid" href="{{ url('add_cart', $products->id) }}">
-                    Thêm Vào Giỏ Hàng
-                </a>
-            @else
-                <button class="btn btn-secondary" disabled>Hết Hàng</button>
-            @endif
+                        <a class="btn btn-white" style="border: 1px solid " href="{{ url('add_cart', $products->id) }}">
+                            Thêm Vào Giỏ Hàng
+                        </a>
                     </div>
                 </div>
             </div>

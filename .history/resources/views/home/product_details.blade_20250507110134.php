@@ -207,9 +207,6 @@
                             <div class="alert alert-warning">
                                 Không tìm thấy sản phẩm hoặc sản phẩm đã bị xóa.
                             </div>
-                              <div class="alert alert-warning mt-3">
-            <strong>Thông báo:</strong> Sản phẩm này hiện đã hết hàng.
-        </div>
                         @endif
                     </div>
                 </div>
